@@ -1,39 +1,50 @@
-# MicroPython WTools CModule
+<h1 align="center">MicroPython WTools CModule</h1>
 
-#### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+<p align="center"><img src="https://img.shields.io/badge/Licence-MIT-green.svg?style=for-the-badge" /></p>
 
-#### 软件架构
-软件架构说明
+## 项目介绍
 
+为`MicroPython`提供计算类相关功能，试图将大量需要计算的代码封装为 C 模块，以提高效率。
 
-#### 安装教程
+## 功能需求列表
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+目前的功能需求是对颜色亮度进行调节。
 
-#### 使用说明
+## 如何添加模块
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+> 以`ESP`系列芯片为例
 
-#### 参与贡献
+* 在`MicroPython`项目同级目录克隆或粘贴本项目文件夹，并将文件夹重命名为`wtools`
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+	```bash
+	git clone https://gitee.com/walkline/micropython-wtools-cmodule.git wtools
+	```
 
+* 根据`MicroPython`项目固件编译说明做好前期准备
 
-#### 特技
+* 使用如下命令编译固件：
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+	```bash
+	cd micropython/ports/esp32
+	make USER_C_MODULES=../../../../wtools/cmodules/micropython.cmake
+	```
+
+## 模块使用说明
+
+参考项目目录下`tests`文件中的代码。
+
+查看 [模块方法列表](./DOCS.md)
+
+## 参考资料
+
+* [Adafruit NeoPixel Library](https://github.com/adafruit/Adafruit_NeoPixel)
+* [Arduino](https://www.arduino.cc/)
+
+## 合作交流
+
+* 联系邮箱：<walkline@163.com>
+* QQ 交流群：
+	* 走线物联：[163271910](https://jq.qq.com/?_wv=1027&k=xtPoHgwL)
+	* 扇贝物联：[31324057](https://jq.qq.com/?_wv=1027&k=yp4FrpWh)
+
+<p align="center"><img src="https://gitee.com/walkline/WeatherStation/raw/docs/images/qrcode_walkline.png" width="300px" alt="走线物联"><img src="https://gitee.com/walkline/WeatherStation/raw/docs/images/qrcode_bigiot.png" width="300px" alt="扇贝物联"></p>
