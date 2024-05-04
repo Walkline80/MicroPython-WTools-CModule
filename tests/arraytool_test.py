@@ -7,7 +7,23 @@ from random import randint
 from wtools import ArrayTool
 
 
-class ArrayToolShiftPythonTest(object):
+def timed_function(f, *args, **kwargs):
+	myname = str(f).split(' ')[1]
+
+	def new_func(*args, **kwargs):
+		t = time.ticks_us()
+		result = f(*args, **kwargs)
+		delta = time.ticks_diff(time.ticks_us(), t)
+		print('Function {} Time = {:6.3f}ms'.format(myname, delta/1000))
+		return result
+	return new_func
+
+def random_generator(self, max):
+	while True:
+		yield randint(0, max)
+
+
+class ArrayToolPythonTest(object):
 	UP    = 0
 	DOWN  = 1
 	LEFT  = 2
@@ -17,7 +33,7 @@ class ArrayToolShiftPythonTest(object):
 		self.__width  = width
 		self.__height = height
 
-		self.__direction = self.random_generator(3)
+		self.__direction = random_generator(3)
 
 		self.__shift = {
 			self.UP   : self.__shift_up,
@@ -54,10 +70,6 @@ class ArrayToolShiftPythonTest(object):
 				self.__shift[direction]()
 				self.__replace[direction](count)
 
-	def random_generator(self, max):
-		while True:
-			yield randint(0, max)
-
 	def __shift_up(self):
 		self.__current_frame.pop(0)
 		self.__current_frame.append([0] * self.__width)
@@ -91,11 +103,11 @@ class ArrayToolShiftPythonTest(object):
 			row[-1] = self.__in_frame[index][times - 2]
 
 
-class ArrayToolShiftCModuleTest(object):
-	UP    = 0
-	DOWN  = 1
-	LEFT  = 2
-	RIGHT = 3
+class ArrayToolCModuleTest(object):
+	UP    = ArrayTool.SHIFT_UP
+	DOWN  = ArrayTool.SHIFT_DOWN
+	LEFT  = ArrayTool.SHIFT_LEFT
+	RIGHT = ArrayTool.SHIFT_RIGHT
 
 	def __init__(self, width, height):
 		self.__width  = width
@@ -104,7 +116,7 @@ class ArrayToolShiftCModuleTest(object):
 		self.__array_in  = ArrayTool(self.__width, self.__height)
 		self.__array_out = ArrayTool(self.__width, self.__height)
 
-		self.__direction = self.random_generator(3)
+		self.__direction = random_generator(3)
 
 	def run(self):
 		self.__array_in.init(0x47e1)
@@ -127,32 +139,17 @@ class ArrayToolShiftCModuleTest(object):
 					col_index_2 = count - 2 if direction == self.LEFT else -count + 1
 					self.__array_out.replace_col(col_index_1, self.__array_in.get_col(col_index_2))
 
-	def random_generator(self, max):
-		while True:
-			yield randint(0, max)
-
-
-def timed_function(f, *args, **kwargs):
-	myname = str(f).split(' ')[1]
-
-	def new_func(*args, **kwargs):
-		t = time.ticks_us()
-		result = f(*args, **kwargs)
-		delta = time.ticks_diff(time.ticks_us(), t)
-		print('Function {} Time = {:6.3f}ms'.format(myname, delta/1000))
-		return result
-	return new_func
 
 @timed_function
 def python_testing(times=1000):
-	testing = ArrayToolShiftPythonTest(3, 5)
+	testing = ArrayToolPythonTest(3, 5)
 
 	for _ in range(times):
 		testing.run()
 
 @timed_function
 def cmodule_testing(times=1000):
-	testing = ArrayToolShiftCModuleTest(3, 5)
+	testing = ArrayToolCModuleTest(3, 5)
 
 	for _ in range(times):
 		testing.run()
