@@ -103,6 +103,16 @@ void hsv2rgb(color_hsv_t *hsv, color_rgb_t *rgb) {
 // An 8-bit gamma-correction function
 // ColorTool.gamma8(value)
 static mp_obj_t colortool_gamma8(mp_obj_t value_obj) {
+    if (mp_obj_is_type(value_obj, &mp_type_tuple)) {
+        mp_obj_tuple_t *value_tuple = MP_OBJ_TO_PTR(value_obj);
+
+        for (int index = 0; index < value_tuple->len; index++) {
+            value_tuple->items[index] = mp_obj_new_int(GammaTable[mp_obj_get_int(value_tuple->items[index])]);
+        }
+
+        return MP_OBJ_FROM_PTR(value_tuple);
+    }
+
     mp_int_t value = mp_obj_get_int(value_obj);
 
     if (value < 0 || value > 255) {
