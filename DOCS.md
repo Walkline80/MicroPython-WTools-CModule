@@ -32,9 +32,9 @@ array_a.print()
 
 ### 方法列表
 
-* **ArrayTool.init(value)**
+* **ArrayTool.init(int)**
 
-	输入一个整形数`value`，根据`value`的二进制数值对二维数组进行填充。
+	输入一个整形数，根据它的二进制数值对二维数组进行填充。
 
 	填充顺序为：从上到下，从左到右，即：
 
@@ -92,6 +92,49 @@ array_a.print()
 * **ArrayTool.SHIFT_RIGHT**
 
 	`ArrayTool.shift()`方法使用的常量。
+
+## ColorTool 类
+
+示例用法：
+
+```python
+from wtools import ColorTool
+
+color = (128, 128, 128)
+
+# h, s, v = ColorTool.rgb2hsv(color)
+h, s, v = ColorTool.rgb2hsv(*color)
+
+v *= 0.5
+
+# color = ColorTool.hsv2rgb((h, s, v))
+color = ColorTool.hsv2rgb(h, s, v)
+
+print(ColorTool.gamma8(color))
+```
+
+### 构造器
+
+* 无构造函数
+
+### 静态方法列表
+
+* **ColorTool.gamma8(int)**
+* **ColorTool.gamma8(tuple(r, g, b))**
+
+	输入一个整形数，或一个包含整形数的元祖，返回经过伽马矫正后的原类型数据。
+
+	> 伽马矫正使用`Gamma 2.6`
+
+* **ColorTool.rgb2hsv(r, g, b)**
+* **ColorTool.rgb2hsv(tuple(r, g, b))**
+
+	输入三个整形数，或一个包含整形数的元祖，返回对应的`HSV`元祖。
+
+* **ColorTool.hsv2rgb(h, s, v)**
+* **ColorTool.hsv2rgb(tuple(h, s, v))**
+
+	输入三个整形数，或一个包含整形数的元祖，返回对应的`RGB`元祖。
 
 ## 合作交流
 
