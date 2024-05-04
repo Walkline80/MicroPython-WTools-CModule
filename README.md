@@ -39,6 +39,7 @@
 
 * [Adafruit NeoPixel Library](https://github.com/adafruit/Adafruit_NeoPixel)
 * [Arduino](https://www.arduino.cc/)
+* [HSV颜色空间和RGB颜色空间相互转换C语言实现](https://blog.csdn.net/songyulong8888/article/details/117228659)
 
 ## 合作交流
 
